@@ -19,7 +19,7 @@
         </button>
       </div>
 
-      <div v-if="editing" @click="doEdit(false)" class="add-item-form">
+      <div v-if="editing" class="add-item-form">
         <input
           @keyup.enter="saveItem"
           v-model="newItem"
@@ -27,8 +27,16 @@
           type="text"
         />
 
-        <button @click="saveItem" class="btn btn-primary">Save Item</button>
+        <button
+          :disabled="newItem.length < 5"
+          @click="saveItem"
+          class="btn btn-primary"
+        >
+          Save Item
+        </button>
       </div>
+
+      <!-- <a v-bind:href="newItem">Link</a> -->
 
       <p v-if="items.length === 0">You've bought all yout items.</p>
 
