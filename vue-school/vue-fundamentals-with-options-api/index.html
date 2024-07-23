@@ -41,7 +41,15 @@
       <p v-if="items.length === 0">You've bought all yout items.</p>
 
       <ul>
-        <li v-for="item in items" :key="item.id">{{ item.label }}</li>
+        <li
+          v-for="item in items"
+          @click="togglePurchased(item)"
+          :key="item.id"
+          :class="{strikeout: item.purchased}"
+          class="static-class"
+        >
+          {{ item.label }}
+        </li>
       </ul>
     </div>
 
@@ -54,9 +62,9 @@
             newItem: "",
             editing: false,
             items: [
-              // { id: 1, label: "10 party hats" },
-              // { id: 2, label: "2 board games" },
-              // { id: 3, label: "20 cups" },
+              { id: 1, label: "10 party hats", purchased: true },
+              { id: 2, label: "2 board games", purchased: true },
+              { id: 3, label: "20 cups", purchased: false },
             ],
           };
         },
@@ -69,6 +77,9 @@
           doEdit(editing) {
             this.editing = editing;
             this.newItem = "";
+          },
+          togglePurchased(item) {
+            item.purchased = !item.purchased;
           },
         },
       }).mount("#shopping-list");
