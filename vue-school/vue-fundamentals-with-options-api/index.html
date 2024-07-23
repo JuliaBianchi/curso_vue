@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shopping List App</title>
+    <title>Lista de Compras</title>
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
@@ -11,11 +11,11 @@
         <h1>{{ header || 'Welcome'}}</h1>
 
         <button v-if="editing" @click="doEdit(false)" class="btn btn-cancel">
-          Cancel
+          Cancelar
         </button>
 
         <button v-else @click="doEdit(true)" class="btn btn primary">
-          Add Item
+          Adicionar item
         </button>
       </div>
 
@@ -23,7 +23,7 @@
         <input
           @keyup.enter="saveItem"
           v-model="newItem"
-          placeholder="Add an item"
+          placeholder="Adicione um item"
           type="text"
         />
 
@@ -32,31 +32,31 @@
           @click="saveItem"
           class="btn btn-primary"
         >
-          Save Item
+          Salvar item
         </button>
       </div>
 
       <!-- <a v-bind:href="newItem">Link</a> -->
 
-      <p v-if="items.length === 0">You've bought all yout items.</p>
+      <p v-if="items.length === 0">Sua lista de compras está vazia.</p>
 
       <button
         v-if="items.length > 0"
         @click="clearList"
         class="btn btn primary"
       >
-        Clear List
+        Limpar lista
       </button>
 
       <ul>
         <li
-          v-for="item in reversedItems"
+          v-for="item in items"
           @click="togglePurchased(item)"
           :key="item.id"
           :class="{strikeout: item.purchased}"
           class="static-class"
         >
-          {{ item.label }}
+          {{ item.id + "-" + item.label }}
         </li>
       </ul>
     </div>
@@ -66,7 +66,7 @@
       const shoppingList = Vue.createApp({
         data() {
           return {
-            header: "Shopping List App",
+            header: "Lista de Compras",
             newItem: "",
             editing: false,
             items: [],
@@ -89,11 +89,11 @@
             this.items = [];
           },
         },
-        computed: {
-          reversedItems() {
-            return [...this.items].reverse();
-          },
-        },
+        // computed: {
+        //   reversedItems() {
+        //     return [...this.items].reverse();
+        //   },
+        // },
       }).mount("#shopping-list");
     </script>
   </body>
